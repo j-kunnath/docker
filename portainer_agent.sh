@@ -1,3 +1,4 @@
+#!/bin/bash
 docker run -d \
   -p 9001:9001 \
   --name portainer_agent \

@@ -21,10 +21,10 @@ configure_static_ip() {
     echo "Configuring static IP on $interface..."
 
     # Backup the original interfaces file
-    cp /etc/network/interfaces /etc/network/interfaces.bak
+    sudo cp /etc/network/interfaces /etc/network/interfaces.bak
 
     # Write the static configuration to the interfaces file
-    cat <<EOF > /etc/network/interfaces
+    sudo bash -c "cat > /etc/network/interfaces" <<EOF
 auto $interface
 iface $interface inet static
     address $static_ip
@@ -33,6 +33,17 @@ iface $interface inet static
     dns-nameservers $dns
 EOF
 
+#############################################################
+    # Write the static configuration to the interfaces file using tee
+#    {
+#        echo "auto $interface"
+#        echo "iface $interface inet static"
+#        echo "    address $static_ip"
+#        echo "    netmask $netmask"
+#        echo "    gateway $gateway"
+#        echo "    dns-nameservers $dns"
+#    } | sudo tee /etc/network/interfaces > /dev/null
+#########################################################################    
     echo "Static IP configured to $static_ip on $interface."
 }
 

@@ -58,10 +58,10 @@ main() {
     fi
 
     echo "Detected interface: $interface"
-    configure_static_ip "$interface"
+   # configure_static_ip "$interface"
 
     # Restart the networking service
-    systemctl restart networking
+   # systemctl restart networking
     echo "Networking service restarted."
 }
 

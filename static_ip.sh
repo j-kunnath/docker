@@ -4,7 +4,9 @@
 detect_interface() {
     # Get the first active interface that is not a loopback
     local interface
-    interface=$(ip -o -f inet addr show | awk '/^[^127]/ {print $2; exit}')
+   # interface=$(ip -o -f inet addr show | awk '/^[^127]/ {print $2; exit}')
+   # interface=$(ip link show | awk '/^[0-9]+: / {print $2; getline; if ($1 == "state" && $2 == "UP") print $0; exit}' | awk '{print $1}' | sed 's/:$//')
+    interface=$(ip -o -f inet addr show | awk '/^[0-9]+: / && $2 != "lo" {print $2; exit}')
     echo "$interface"
 }
 
